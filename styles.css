@@ -1,0 +1,70 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+#threeCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+#openFileDialog {
+    z-index: 1;
+    position: fixed;
+    top: 1rem;
+    left: 7rem;
+}
+
+#close-button {
+    z-index: 1;
+    position: fixed;
+    top: 3rem;
+    padding: 0 2.9rem;
+    left: 7rem;
+}
+
+#viewer,
+iframe {
+    position: absolute;
+    border: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#tracker,
+iframe {
+    position: relative;
+    border: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: transparent;
+}
+
+#camera {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+
+    padding: 12px;
+    border-radius: 50%;
+    margin-bottom: 0px;
+
+    background-color: #FFF;
+    opacity: .9;
+    z-index: 999;
+
+    box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+}

@@ -4,13 +4,14 @@ body {
 
 .p20 {
     padding: 20px;
+    background: transparent;
 }
 
 .canvasbox {
     border-radius: 3px;
     margin-right: 10px;
-    width: 450px;
-    height: 338px;
+    width: 180px;
+    height: 180px;
     border-bottom: 3px solid #0063FF;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
     background: #333;
@@ -25,9 +26,17 @@ body {
     margin-top: 10px
 }
 
+.bx--btn--secondary {
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    background-color: #393939;
+    color: #ffffff;
+    width: 180px;
+}
+
 .updatenote {
-    padding: 10px;
-    background: rgb(245, 147, 20);
+
     color: white;
     display: inline;
 }

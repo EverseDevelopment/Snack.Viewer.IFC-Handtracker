@@ -2,31 +2,41 @@
 <html lang="en">
 
 <head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/png" href="./favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+  <link rel="stylesheet" href="track.css">
 
-    <meta charset="UTF-8">
-    <title>Handtrack.js : A library for prototyping realtime handtracking in the browser. </title>
-    <link rel="stylesheet" href="https://unpkg.com/carbon-components@latest/css/carbon-components.css" />
-    <link rel="stylesheet" href="track.css">
+
 </head>
 
-<body class="bx--body p20">
-    <!-- <img id="img" src="hand.jpg"/>  -->
-    <div class="p20">
-        Handtrack.js allows you prototype handtracking interactions in the browser in 10 lines of code.
-    </div>
+<body>
+
+  <div
+    style="position: fixed;z-index: 3;width: 300px;bottom: 0px;display: flex;align-items: center;justify-content: center;">
     <div class="mb10">
-        <button onclick="toggleVideo()" id="trackbutton" class="bx--btn bx--btn--secondary" type="button">
-            Toggle Video
-        </button>
-        <div id="updatenote" class="updatenote mt10"> loading model ..</div>
+      <div id="updatenote" class="updatenote mt10"> loading model ..</div>
+      <button id="trackbutton" type="button">
+        Toggle Video
+      </button>
+      <script type="module" src="bundle.js"></script>
     </div>
-    <video class="videobox canvasbox" autoplay="autoplay" id="myvideo" visibility="hidden"></video>
+    <video class="videobox canvasbox" autoplay="autoplay" id="myvideo" style="display: none;"></video>
 
     <canvas id="canvas" class="border canvasbox"></canvas>
-
     <script src="https://unpkg.com/carbon-components@latest/scripts/carbon-components.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"> </script>
-    <script src="track.js"></script>
+
+  </div>
+  <div>
+    <input readonly type="file" id="openFileDialog" />
+    <canvas id="threeCanvas"></canvas>\
+    <p style="padding-left: 150px;">Hello World</p>
+    <a id="test-button" class="button4" style="background-color:#a79e1cef">TEST</a>
+    <script type="module" src="bundle.js"></script>
+  </div>
+
 </body>
 
 </html>

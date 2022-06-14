@@ -1,12 +1,44 @@
 {
-  "name": "handtracking_ifc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "track.js",
+  "name": "example",
+  "version": "0.0.115",
+  "author": "IFC.js",
+  "license": "MIT",
+  "description": "This library is the implementation of [web-ifc](https://github.com/tomvandig/web-ifc) for [THREE.js](https://github.com/mrdoob/three.js/). This is the official IFCLoader of Three.js.",
+  "main": "src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IFCjs/web-ifc-three"
+  },
+  "keywords": [
+    "bim",
+    "openbim",
+    "ifc",
+    "architecture",
+    "engineering",
+    "construction",
+    "aec"
+  ],
+  "bugs": {
+    "url": "https://github.com/agviegas/web-ifc-three/issues"
+  },
+  "homepage": "https://github.com/agviegas/web-ifc-three#readme",
   "scripts": {
     "start": "serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c && npm run copy-files",
+    "watch": "rollup -c && npm start",
+    "copy-files": "cpy ../node_modules/web-ifc/web-ifc.wasm . && cpy ../node_modules/web-ifc/web-ifc-mt.wasm . && cpy ../web-ifc-three/dist/IFCWorker.js . && cpy ../web-ifc-three/dist/IFCWorker.js.map ."
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "stats.js": "^0.17.0",
+    "three": "^0.135.0",
+    "web-ifc": "^0.0.33",
+    "web-ifc-three": "0.0.115"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "cpy-cli": "^3.1.1"
+  }
 }
