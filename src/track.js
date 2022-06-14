@@ -73,8 +73,7 @@ export class Track {
             model.renderPredictions(pred, canvas, context, video);
             if (pred[0] != null) {
                 contextTracker.UpdateState(pred[0]);
-                // console.log("Predictions: ", pred);
-                contextTracker.ChangeLocation(pred[0]);
+                contextTracker.OrbitCamera(pred[0]);
             }
             if (isVideo) {
                 window.requestAnimationFrame(contextTracker.runDetection);
@@ -108,16 +107,29 @@ export class Track {
             console.log("command deactivated");
         }
     }
-    ChangeLocation(pred) {
+
+    OrbitCamera(pred) {
         let width = window.innerWidth;
         let height = window.innerHeight;
         let bbx = pred.bbox;
-        let x = bbx[0] / width - 0.5;
-        let y = (bbx[1] / height - 0.5);
-        loader.camera.position.x = Math.sin(x * Math.PI * 2) * 3;
-        loader.camera.position.z = Math.sin(y * Math.PI * 2) * 3;
-        console.log(bbx);
-        // console.log(loader);
+        let direction = (bbx[0] / 480) - 0.5;
+        let target = loader.controls.target;
+        let rotSpeed = (direction * direction);
+        console.log(rotSpeed);
+        var x = loader.camera.position.x,
+            y = loader.camera.position.y,
+            z = loader.camera.position.z;
+
+        if (direction < 0) {
+            loader.camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
+            loader.camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+        } else {
+            loader.camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
+            loader.camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+        }
+
+        loader.camera.lookAt(target);
+
     }
 
 }
