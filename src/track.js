@@ -112,20 +112,31 @@ export class Track {
         let width = window.innerWidth;
         let height = window.innerHeight;
         let bbx = pred.bbox;
-        let direction = (bbx[0] / 480) - 0.5;
+        let centerX = bbx[0];
+        let centerY = bbx[1];
+        //Lateral
+        let lateralDirection = (centerX / 560) - 0.5;
+        let VerticalDirection = (centerY / 300) - 0.5;
         let target = loader.controls.target;
-        let rotSpeed = (direction * direction);
-        console.log(rotSpeed);
+        let LatRotSpeed = (lateralDirection * lateralDirection);
+        let VerRotSpeed = (VerticalDirection * VerticalDirection);
+        console.log(LatRotSpeed);
         var x = loader.camera.position.x,
             y = loader.camera.position.y,
             z = loader.camera.position.z;
 
-        if (direction < 0) {
-            loader.camera.position.x = x * Math.cos(rotSpeed) + z * Math.sin(rotSpeed);
-            loader.camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+        if (lateralDirection < 0) {
+            loader.camera.position.x = x * Math.cos(LatRotSpeed) + z * Math.sin(LatRotSpeed);
+            loader.camera.position.z = z * Math.cos(LatRotSpeed) - x * Math.sin(LatRotSpeed);
         } else {
-            loader.camera.position.x = x * Math.cos(rotSpeed) - z * Math.sin(rotSpeed);
-            loader.camera.position.z = z * Math.cos(rotSpeed) + x * Math.sin(rotSpeed);
+            loader.camera.position.x = x * Math.cos(LatRotSpeed) - z * Math.sin(LatRotSpeed);
+            loader.camera.position.z = z * Math.cos(LatRotSpeed) + x * Math.sin(LatRotSpeed);
+        }
+
+        if (VerticalDirection < 0) {
+            loader.camera.position.y += VerRotSpeed;
+        } else {
+            loader.camera.position.y -= VerRotSpeed;
         }
 
         loader.camera.lookAt(target);
