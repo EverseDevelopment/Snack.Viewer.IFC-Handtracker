@@ -24,13 +24,13 @@
   "homepage": "https://github.com/agviegas/web-ifc-three#readme",
   "scripts": {
     "start": "serve",
-    "build": "rollup -c && npm run copy-files",
-    "watch": "rollup -c && npm start",
-    "copy-files": "cpy ../node_modules/web-ifc/web-ifc.wasm . && cpy ../node_modules/web-ifc/web-ifc-mt.wasm . && cpy ../web-ifc-three/dist/IFCWorker.js . && cpy ../web-ifc-three/dist/IFCWorker.js.map ."
+    "build": "rollup -c ",
+    "watch": "rollup -c && npm start"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "stats.js": "^0.17.0",
     "three": "^0.135.0",
