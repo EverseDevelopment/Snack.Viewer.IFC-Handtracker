@@ -30,9 +30,9 @@
   "dependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup":"^1.32.1",
+    "rollup":"1.32.1",
     "stats.js": "^0.17.0",
     "three": "^0.135.0",
     "web-ifc": "^0.0.33",
