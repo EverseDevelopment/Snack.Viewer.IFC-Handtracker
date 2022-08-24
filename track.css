@@ -9,8 +9,8 @@ body {
 
 .canvasbox {
     border-radius: 3px;
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 150.5px;
     border-bottom: 3px solid #0063FF;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
     background: #333;

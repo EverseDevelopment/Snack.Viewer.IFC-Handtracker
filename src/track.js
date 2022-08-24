@@ -34,9 +34,11 @@ export class Track {
             trackButton.addEventListener("click", function () {
                 if (!isVideo) {
                     updateNote.innerText = "Starting video"
+                    trackButton.innerText = "Turn Off video"
                     contextTracker.startVideo(contextTracker);
                 } else {
                     updateNote.innerText = "Stopping video"
+                    trackButton.innerText = "Turn On video"
                     handTrack.stopVideo(video)
                     isVideo = false;
                     updateNote.innerText = "Video stopped"

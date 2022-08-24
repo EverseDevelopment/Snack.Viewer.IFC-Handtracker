@@ -7,6 +7,7 @@ export class IfcManager {
     constructor(scene, ifcModels) {
         this.scene = scene;
         this.ifcModels = ifcModels;
+        this.modelScale = 0.2;
         this.ifcLoader = new IFCLoader();
         this.setupIfcLoader();
         this.setupFileOpener();
@@ -75,6 +76,9 @@ export class IfcManager {
         }
 
         this.ifcModels.push(ifcModel);
+        ifcModel.scale.set(this.modelScale, this.modelScale, this.modelScale);
+        const modelBoundingBox = ifcModel.geometry.boundingBox;
+        ifcModel.position.set(0, -modelBoundingBox.min.y * this.modelScale, 0);
         this.scene.add(ifcModel);
 
         const stop = window.performance.now()

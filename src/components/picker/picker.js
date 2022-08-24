@@ -8,7 +8,6 @@ export class Picker {
         this.prePickMat = this.newMaterial(0.5, 0xffccff);
         this.caster = new RayCaster(base.camera, ifcModels);
         this.selector = new ItemSelector(base.scene, ifcModels, this.caster, this.pickMat);
-        this.preSelector = new ItemSelector(base.scene, ifcModels, this.caster, this.prePickMat);
         this.setupPicking(base.threeCanvas);
     }
 
@@ -19,7 +18,6 @@ export class Picker {
 
     setupPicking(threeCanvas){
         threeCanvas.ondblclick = (event) => this.selector.select(event, false, true);
-        threeCanvas.onmousemove = (event) => this.preSelector.select(event);
     }
 
     newMaterial(opacity, color){
