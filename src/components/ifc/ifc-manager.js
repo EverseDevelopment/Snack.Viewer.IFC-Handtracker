@@ -7,6 +7,7 @@ export class IfcManager {
     constructor(scene, ifcModels) {
         this.scene = scene;
         this.ifcModels = ifcModels;
+        this.modelScale = 0.2;
         this.ifcLoader = new IFCLoader();
         this.setupIfcLoader();
         this.setupFileOpener();
@@ -40,15 +41,9 @@ export class IfcManager {
     }
 
     setupFileOpener() {
-        const input = document.querySelector('input[type="file"]');
-        if (!input) return;
-        input.addEventListener(
-            'change',
-            async (changed) => {
-                await this.loadIFC(changed);
-            },
-            false
-        );
+        setTimeout(async () => {
+            await this.loadIFC();
+        }, 50);
     }
 
     async dispose() {
@@ -61,11 +56,9 @@ export class IfcManager {
 
     subset = {};
 
-    async loadIFC(changed) {
+    async loadIFC() {
 
         const start = window.performance.now()
-
-        const ifcURL = URL.createObjectURL(changed.target.files[0]);
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
 
         const firstModel = Boolean(this.ifcModels.length === 0);
@@ -75,9 +68,7 @@ export class IfcManager {
             USE_FAST_BOOLS: false
         });
 
-        const ifcModel = await this.ifcLoader.loadAsync(ifcURL);
-        // console.log(ifcModel);
-
+        const ifcModel = await this.ifcLoader.loadAsync("../../../model/building.ifc");
         if (firstModel) {
             const matrixArr = await this.ifcLoader.ifcManager.ifcAPI.GetCoordinationMatrix(ifcModel.modelID);
             const matrix = new Matrix4().fromArray(matrixArr);
@@ -85,6 +76,9 @@ export class IfcManager {
         }
 
         this.ifcModels.push(ifcModel);
+        ifcModel.scale.set(this.modelScale, this.modelScale, this.modelScale);
+        const modelBoundingBox = ifcModel.geometry.boundingBox;
+        ifcModel.position.set(0, -modelBoundingBox.min.y * this.modelScale, 0);
         this.scene.add(ifcModel);
 
         const stop = window.performance.now()
