@@ -18,7 +18,6 @@ export class ThreeScene {
         this.setupBasics();
         this.setupLights();
         this.setupWindowResize();
-        this.setupMonitoring();
         this.setupAnimation();
         this.setupCamera();
         this.scene.add(this.grid);
@@ -33,7 +32,7 @@ export class ThreeScene {
     }
 
     setupBasics() {
-        this.scene.background = new Color(0x8cc7de);
+        this.scene.background = new Color(0xffffff);
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.camera.position.z = 5;
@@ -56,12 +55,6 @@ export class ThreeScene {
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
         });
-    }
-
-    setupMonitoring() {
-        this.stats.showPanel(0);
-        this.stats.dom.style.cssText = 'position:absolute;top:1rem;left:1rem;z-index:1;';
-        document.body.appendChild(this.stats.dom);
     }
 
     setupCamera() {

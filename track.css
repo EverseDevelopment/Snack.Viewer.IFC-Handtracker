@@ -9,7 +9,6 @@ body {
 
 .canvasbox {
     border-radius: 3px;
-    margin-right: 10px;
     width: 180px;
     height: 180px;
     border-bottom: 3px solid #0063FF;
@@ -36,7 +35,6 @@ body {
 }
 
 .updatenote {
-
     color: white;
     display: inline;
 }
