@@ -53,7 +53,8 @@ export class Track {
         handTrack.startVideo(video).then(function (status) {
             console.log("video started", status);
             if (status) {
-                updateNote.innerText = "Video started. Now tracking"
+                const howToBtn = '<button class="btn mt-1 w-100" data-toggle="modal" data-target="#how-to-modal">How to use it</button>';
+                updateNote.innerHTML = howToBtn;
                 isVideo = true
                 tracker.runDetection(tracker)
             } else {
