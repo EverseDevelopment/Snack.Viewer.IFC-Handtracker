@@ -18,8 +18,7 @@ let CommandActivationSteps = []
 let CommandStatus = null;
 let contextTracker = null;
 export class Track {
-
-
+    
     constructor(IFCloader) {
 
         video = document.getElementById("myvideo");
@@ -44,10 +43,26 @@ export class Track {
                     updateNote.innerText = "Video stopped"
                 }
             });
+
+            const input = document.getElementById("upload-model-input");
+			input.addEventListener(
+				"change",
+				(changed) => {
+					const file = changed.target.files[0];
+					var ifcURL = URL.createObjectURL(file);
+					const ifcModels = [];
+					const ifcFilePath = ifcURL;
+					const baseScene = new ThreeScene();
+					const picker = new Picker(baseScene, ifcModels);
+					const loader = new IfcManager(baseScene.scene, ifcModels);
+					const track = new Track(baseScene);	
+					new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
+					console.log(file)
+				},
+				false
+			);
         });
     }
-
-
 
     startVideo(tracker) {
         handTrack.startVideo(video).then(function (status) {
@@ -63,12 +78,9 @@ export class Track {
         });
     }
 
-
     isNotHand(value) {
         return value.label != "face";
     }
-
-
 
     runDetection() {
         model.detect(video).then(predictions => {

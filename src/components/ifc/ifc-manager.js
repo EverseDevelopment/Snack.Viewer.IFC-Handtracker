@@ -4,13 +4,13 @@ import { acceleratedRaycast, computeBoundsTree, disposeBoundsTree } from 'three-
 import { IFCWALLSTANDARDCASE, IFCSLAB, IFCWINDOW, IFCSPACE, IFCOPENINGELEMENT } from 'web-ifc';
 
 export class IfcManager {
-    constructor(scene, ifcModels) {
+    constructor(scene, ifcModels, ifcFilePath) {
         this.scene = scene;
         this.ifcModels = ifcModels;
         this.modelScale = 0.2;
         this.ifcLoader = new IFCLoader();
         this.setupIfcLoader();
-        this.setupFileOpener();
+        this.setupFileOpener(ifcFilePath);
     }
 
     remove = false;
@@ -40,9 +40,9 @@ export class IfcManager {
         this.setupThreeMeshBVH();
     }
 
-    setupFileOpener() {
+    setupFileOpener(ifcFilePath) {
         setTimeout(async () => {
-            await this.loadIFC();
+            await this.loadIFC(ifcFilePath);
         }, 50);
     }
 
@@ -56,7 +56,11 @@ export class IfcManager {
 
     subset = {};
 
-    async loadIFC() {
+    async loadIFC(ifcFilePath) {
+
+        if (ifcFilePath == "") {
+			ifcFilePath = "../../../model/defaultModel.ifc";
+		}
 
         const start = window.performance.now()
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
@@ -68,7 +72,7 @@ export class IfcManager {
             USE_FAST_BOOLS: false
         });
 
-        const ifcModel = await this.ifcLoader.loadAsync("../../../model/building.ifc");
+        const ifcModel = await this.ifcLoader.loadAsync(ifcFilePath);
         if (firstModel) {
             const matrixArr = await this.ifcLoader.ifcManager.ifcAPI.GetCoordinationMatrix(ifcModel.modelID);
             const matrix = new Matrix4().fromArray(matrixArr);
