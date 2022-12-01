@@ -49,6 +49,7 @@ export class Track {
             input.addEventListener(
                 "change",
                 (changed) => {
+                    console.log(changed);
                     manager.RefreshModel(changed);
                 },
                 false

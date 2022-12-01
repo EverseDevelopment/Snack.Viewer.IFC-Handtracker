@@ -62,6 +62,8 @@ export class IfcManager {
             ifcFilePath = "../../../model/defaultModel.ifc";
         }
 
+        console.log(ifcFilePath);
+
         const start = window.performance.now()
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
 

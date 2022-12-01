@@ -94824,6 +94824,8 @@ class IfcManager {
             ifcFilePath = "../../../model/defaultModel.ifc";
         }
 
+        console.log(ifcFilePath);
+
         const start = window.performance.now();
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
 
@@ -94925,6 +94927,7 @@ class Track {
             input.addEventListener(
                 "change",
                 (changed) => {
+                    console.log(changed);
                     manager.RefreshModel(changed);
                 },
                 false
