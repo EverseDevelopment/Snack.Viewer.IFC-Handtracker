@@ -58,7 +58,7 @@ export class IfcManager {
 
     async loadIFC(ifcFilePath) {
 
-        if (ifcFilePath == "") {
+        if (ifcFilePath == "" || ifcFilePath == null) {
 			ifcFilePath = "../../../model/defaultModel.ifc";
 		}
 
