@@ -11,6 +11,10 @@ This is static, so please use the following steps to run:
 3. npm start
   
 ## Demo
+Image preview
+
+![image](https://user-images.githubusercontent.com/115579683/205162605-f0b9a2ca-1b85-41a8-bfe1-beb4999a3251.png)
+
 You can see a live demo of this repo <a href="https://handgesture.e-verse.com/" target="_blank">Here</a>
 
 ## Contributors
