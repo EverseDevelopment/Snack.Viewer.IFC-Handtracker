@@ -7,8 +7,7 @@
 This is static, so please use the following steps to run:
 
 1. npm install
-2. npm run build
-3. npm start
+2. npm start
   
 ## Demo
 You can see a live demo of this repo <a href="https://handgesture.e-verse.com/" target="_blank">Here</a>
