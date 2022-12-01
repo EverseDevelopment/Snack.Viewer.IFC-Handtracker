@@ -3,7 +3,7 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
-let loader = null;
+let manager = null;
 
 let isVideo = false;
 let model = null;
@@ -18,12 +18,13 @@ let CommandActivationSteps = []
 let CommandStatus = null;
 let contextTracker = null;
 export class Track {
-    
-    constructor(IFCloader) {
+
+    constructor(IFCManager) {
 
         video = document.getElementById("myvideo");
-        contextTracker = this;
-        loader = IFCloader;
+        contextTracker = this; 
+        manager = IFCManager;   
+
         // Load the model.
         handTrack.load(modelParams).then(lmodel => {
             // detect objects in the image.
@@ -45,22 +46,13 @@ export class Track {
             });
 
             const input = document.getElementById("upload-model-input");
-			input.addEventListener(
-				"change",
-				(changed) => {
-					const file = changed.target.files[0];
-					var ifcURL = URL.createObjectURL(file);
-					const ifcModels = [];
-					const ifcFilePath = ifcURL;
-					const baseScene = new ThreeScene();
-					const picker = new Picker(baseScene, ifcModels);
-					const loader = new IfcManager(baseScene.scene, ifcModels);
-					const track = new Track(baseScene);	
-					new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
-					console.log(file)
-				},
-				false
-			);
+            input.addEventListener(
+                "change",
+                (changed) => {
+                    manager.RefreshModel(changed);
+                },
+                false
+            );
         });
     }
 

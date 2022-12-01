@@ -42535,7 +42535,7 @@ class ItemSelector {
     }
 }
 
-class Picker$1 {
+class Picker {
     constructor(base, ifcModels) {
         this.pickMat = this.newMaterial(0.5, 0xff00ff);
         this.prePickMat = this.newMaterial(0.5, 0xffccff);
@@ -43947,7 +43947,7 @@ Stats.Panel = function ( name, fg, bg ) {
 
 };
 
-class ThreeScene$1 {
+class ThreeScene {
     constructor() {
         this.threeCanvas = document.getElementById('threeCanvas');
         this.scene = new Scene();
@@ -94765,7 +94765,7 @@ function disposeBoundsTree() {
 
 }
 
-class IfcManager$1 {
+class IfcManager {
     constructor(scene, ifcModels, ifcFilePath) {
         this.scene = scene;
         this.ifcModels = ifcModels;
@@ -94821,13 +94821,13 @@ class IfcManager$1 {
     async loadIFC(ifcFilePath) {
 
         if (ifcFilePath == "" || ifcFilePath == null) {
-			ifcFilePath = "../../../model/defaultModel.ifc";
-		}
+            ifcFilePath = "../../../model/defaultModel.ifc";
+        }
 
         const start = window.performance.now();
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
 
-        const firstModel = Boolean(this.ifcModels.length === 0);
+        const firstModel = true; 
 
         await this.ifcLoader.ifcManager.applyWebIfcConfig({
             COORDINATE_TO_ORIGIN: firstModel,
@@ -94835,7 +94835,7 @@ class IfcManager$1 {
         });
 
         const ifcModel = await this.ifcLoader.loadAsync(ifcFilePath);
-        if (firstModel) {
+        {
             const matrixArr = await this.ifcLoader.ifcManager.ifcAPI.GetCoordinationMatrix(ifcModel.modelID);
             const matrix = new Matrix4().fromArray(matrixArr);
             this.ifcLoader.ifcManager.setupCoordinationMatrix(matrix);
@@ -94851,6 +94851,28 @@ class IfcManager$1 {
 
         console.log(`Time Taken to load = ${(stop - start) / 1000} seconds`);
     }
+
+    async RefreshModel(changed) {
+
+        const file = changed.target.files[0];
+        var ifcURL = URL.createObjectURL(file);
+
+        const ifcFilePath = ifcURL;
+
+        const scene = this.scene;
+
+        var count = scene.children.length;        
+
+        if (scene) {            
+            //Remove the previous 3D model
+            scene.remove(scene.children[count - 1]);
+        }
+
+        //Add a new 3D model
+        this.loadIFC(ifcFilePath);
+
+        console.log(file);
+    }
 }
 
 let video = null;
@@ -94858,7 +94880,7 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
-let loader = null;
+let manager = null;
 
 let isVideo = false;
 let model = null;
@@ -94872,12 +94894,13 @@ const modelParams = {
 let CommandActivationSteps = [];
 let contextTracker = null;
 class Track {
-    
-    constructor(IFCloader) {
+
+    constructor(IFCManager) {
 
         video = document.getElementById("myvideo");
-        contextTracker = this;
-        loader = IFCloader;
+        contextTracker = this; 
+        manager = IFCManager;   
+
         // Load the model.
         handTrack.load(modelParams).then(lmodel => {
             // detect objects in the image.
@@ -94899,21 +94922,13 @@ class Track {
             });
 
             const input = document.getElementById("upload-model-input");
-			input.addEventListener(
-				"change",
-				(changed) => {
-					const file = changed.target.files[0];
-					var ifcURL = URL.createObjectURL(file);
-					const ifcModels = [];
-					const ifcFilePath = ifcURL;
-					const baseScene = new ThreeScene$1();
-					new Picker$1(baseScene, ifcModels);
-					new IfcManager$1(baseScene.scene, ifcModels, ifcFilePath);
-					new Track(baseScene);	
-					console.log(file);
-				},
-				false
-			);
+            input.addEventListener(
+                "change",
+                (changed) => {
+                    manager.RefreshModel(changed);
+                },
+                false
+            );
         });
     }
 
@@ -95010,7 +95025,8 @@ class Track {
 }
 
 const ifcModels = [];
-const baseScene = new ThreeScene$1();
-new Picker$1(baseScene, ifcModels);
-new IfcManager$1(baseScene.scene, ifcModels);
-new Track(baseScene);
+const ifcFilePath = "";
+const baseScene = new ThreeScene();
+new Picker(baseScene, ifcModels);
+const loader$1 = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
+new Track(loader$1);

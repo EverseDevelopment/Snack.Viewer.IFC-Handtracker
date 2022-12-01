@@ -59,13 +59,13 @@ export class IfcManager {
     async loadIFC(ifcFilePath) {
 
         if (ifcFilePath == "" || ifcFilePath == null) {
-			ifcFilePath = "../../../model/defaultModel.ifc";
-		}
+            ifcFilePath = "../../../model/defaultModel.ifc";
+        }
 
         const start = window.performance.now()
         this.ifcLoader.ifcManager.setOnProgress((event) => console.log(event));
 
-        const firstModel = Boolean(this.ifcModels.length === 0);
+        const firstModel = true; 
 
         await this.ifcLoader.ifcManager.applyWebIfcConfig({
             COORDINATE_TO_ORIGIN: firstModel,
@@ -88,5 +88,27 @@ export class IfcManager {
         const stop = window.performance.now()
 
         console.log(`Time Taken to load = ${(stop - start) / 1000} seconds`);
+    }
+
+    async RefreshModel(changed) {
+
+        const file = changed.target.files[0];
+        var ifcURL = URL.createObjectURL(file);
+
+        const ifcFilePath = ifcURL;
+
+        const scene = this.scene;
+
+        var count = scene.children.length;        
+
+        if (scene) {            
+            //Remove the previous 3D model
+            scene.remove(scene.children[count - 1]);
+        }
+
+        //Add a new 3D model
+        this.loadIFC(ifcFilePath);
+
+        console.log(file)
     }
 }
