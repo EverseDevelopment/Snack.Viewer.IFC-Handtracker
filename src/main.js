@@ -8,6 +8,6 @@ const ifcFilePath = "";
 const baseScene = new ThreeScene();
 const picker = new Picker(baseScene, ifcModels);
 const loader = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
-const track = new Track(loader);
+const track = new Track(loader, baseScene);
 
 

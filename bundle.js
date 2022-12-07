@@ -94883,7 +94883,7 @@ const context = canvas.getContext("2d");
 let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 let manager = null;
-
+let loader$1 = null;
 let isVideo = false;
 let model = null;
 const modelParams = {
@@ -94897,15 +94897,17 @@ let CommandActivationSteps = [];
 let contextTracker = null;
 class Track {
 
-    constructor(IFCManager) {
+    constructor(IFCManager, ThreeScene) {
 
         video = document.getElementById("myvideo");
         contextTracker = this; 
-        manager = IFCManager;   
+        manager = IFCManager; 
+        loader$1 = ThreeScene;  
 
         // Load the model.
         handTrack.load(modelParams).then(lmodel => {
             // detect objects in the image.
+
             model = lmodel;
             updateNote.innerText = "Loaded Model!";
             trackButton.disabled = false;
@@ -94999,30 +95001,29 @@ class Track {
         //Lateral
         let lateralDirection = (centerX / 560) - 0.5;
         let VerticalDirection = (centerY / 300) - 0.5;
-        let target = loader.controls.target;
+        let target = loader$1.controls.target;
         let LatRotSpeed = (lateralDirection * lateralDirection);
         let VerRotSpeed = (VerticalDirection * VerticalDirection);
         console.log(LatRotSpeed);
-        var x = loader.camera.position.x;
-            loader.camera.position.y;
-            var z = loader.camera.position.z;
+        var x = loader$1.camera.position.x;
+            loader$1.camera.position.y;
+            var z = loader$1.camera.position.z;
 
         if (lateralDirection < 0) {
-            loader.camera.position.x = x * Math.cos(LatRotSpeed) + z * Math.sin(LatRotSpeed);
-            loader.camera.position.z = z * Math.cos(LatRotSpeed) - x * Math.sin(LatRotSpeed);
+            loader$1.camera.position.x = x * Math.cos(LatRotSpeed) + z * Math.sin(LatRotSpeed);
+            loader$1.camera.position.z = z * Math.cos(LatRotSpeed) - x * Math.sin(LatRotSpeed);
         } else {
-            loader.camera.position.x = x * Math.cos(LatRotSpeed) - z * Math.sin(LatRotSpeed);
-            loader.camera.position.z = z * Math.cos(LatRotSpeed) + x * Math.sin(LatRotSpeed);
+            loader$1.camera.position.x = x * Math.cos(LatRotSpeed) - z * Math.sin(LatRotSpeed);
+            loader$1.camera.position.z = z * Math.cos(LatRotSpeed) + x * Math.sin(LatRotSpeed);
         }
 
         if (VerticalDirection < 0) {
-            loader.camera.position.y += VerRotSpeed;
+            loader$1.camera.position.y += VerRotSpeed;
         } else {
-            loader.camera.position.y -= VerRotSpeed;
+            loader$1.camera.position.y -= VerRotSpeed;
         }
 
-        loader.camera.lookAt(target);
-
+        loader$1.camera.lookAt(target);
     }
 
 }
@@ -95031,5 +95032,5 @@ const ifcModels = [];
 const ifcFilePath = "";
 const baseScene = new ThreeScene();
 new Picker(baseScene, ifcModels);
-const loader$1 = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
-new Track(loader$1);
+const loader = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
+new Track(loader, baseScene);

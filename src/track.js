@@ -1,10 +1,12 @@
+import { ThreeScene } from "./components/scene/scene";
+
 let video = null;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 let manager = null;
-
+let loader = null;
 let isVideo = false;
 let model = null;
 const modelParams = {
@@ -19,15 +21,17 @@ let CommandStatus = null;
 let contextTracker = null;
 export class Track {
 
-    constructor(IFCManager) {
+    constructor(IFCManager, ThreeScene) {
 
         video = document.getElementById("myvideo");
         contextTracker = this; 
-        manager = IFCManager;   
+        manager = IFCManager; 
+        loader = ThreeScene;  
 
         // Load the model.
         handTrack.load(modelParams).then(lmodel => {
             // detect objects in the image.
+
             model = lmodel
             updateNote.innerText = "Loaded Model!"
             trackButton.disabled = false
@@ -148,7 +152,6 @@ export class Track {
         }
 
         loader.camera.lookAt(target);
-
     }
 
 }
