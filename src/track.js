@@ -21,12 +21,12 @@ let CommandStatus = null;
 let contextTracker = null;
 export class Track {
 
-    constructor(IFCManager, ThreeScene) {
+    constructor(IFCManager, _ThreeScene) {
 
         video = document.getElementById("myvideo");
         contextTracker = this; 
         manager = IFCManager; 
-        loader = ThreeScene;  
+        loader = _ThreeScene;  
 
         // Load the model.
         handTrack.load(modelParams).then(lmodel => {
