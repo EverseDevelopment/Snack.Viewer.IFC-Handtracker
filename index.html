@@ -22,6 +22,14 @@
         <button id="trackbutton" type="button" class="general-button">
           Turn On video
         </button>
+        <div id="my-component"></div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function (event) {
+              new MyComponent({
+                  target: document.getElementById("my-component"),
+              });
+          });
+        </script>
         <video class="videobox canvasbox" autoplay="autoplay" id="myvideo" style="display: none"></video>
         <canvas id="canvas" class="border canvasbox"></canvas>
       </div>

@@ -28,12 +28,16 @@
     "watch": "rollup -c && npm start"
   },
   "dependencies": {
-    "rollup": "^2.75.6",
-    "rollup-plugin-copy": "^3.4.0",
     "@rollup/plugin-commonjs": "^22.0.0",
+    "node-sass": "^8.0.0",
+    "rollup": "^2.75.6",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-svelte": "^6.1.1",
     "stats.js": "^0.17.0",
+    "svelte": "^3.29.6",
+    "svelte-preprocess-sass": "^0.2.0",
     "three": "^0.135.0",
     "web-ifc": "^0.0.33",
     "web-ifc-three": "0.0.115"
