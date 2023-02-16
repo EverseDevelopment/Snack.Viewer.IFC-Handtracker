@@ -3,7 +3,6 @@ import { ThreeScene } from "./components/scene/scene";
 let video = null;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 let manager = null;
 let loader = null;
@@ -34,20 +33,6 @@ export class Track {
 
             model = lmodel
             updateNote.innerText = "Loaded Model!"
-            trackButton.disabled = false
-            trackButton.addEventListener("click", function () {
-                if (!isVideo) {
-                    updateNote.innerText = "Starting video"
-                    trackButton.innerText = "Turn Off video"
-                    contextTracker.startVideo(contextTracker);
-                } else {
-                    updateNote.innerText = "Stopping video"
-                    trackButton.innerText = "Turn On video"
-                    handTrack.stopVideo(video)
-                    isVideo = false;
-                    updateNote.innerText = "Video stopped"
-                }
-            });
 
             const input = document.getElementById("upload-model-input");
             input.addEventListener(
@@ -58,6 +43,24 @@ export class Track {
                 },
                 false
             );
+        });
+    }
+
+    setupTrackButton() {
+        let trackButton = document.getElementById("trackbutton");
+        trackButton.disabled = false
+        trackButton.addEventListener("click", function () {
+            if (!isVideo) {
+                updateNote.innerText = "Starting video"
+                trackButton.innerText = "Turn Off video"
+                contextTracker.startVideo(contextTracker);
+            } else {
+                updateNote.innerText = "Stopping video"
+                trackButton.innerText = "Turn On video"
+                handTrack.stopVideo(video)
+                isVideo = false;
+                updateNote.innerText = "Video stopped"
+            }
         });
     }
 

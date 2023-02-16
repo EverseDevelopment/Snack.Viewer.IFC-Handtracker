@@ -94880,7 +94880,6 @@ class IfcManager {
 let video = null;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 let manager = null;
 let loader$1 = null;
@@ -94910,20 +94909,6 @@ class Track {
 
             model = lmodel;
             updateNote.innerText = "Loaded Model!";
-            trackButton.disabled = false;
-            trackButton.addEventListener("click", function () {
-                if (!isVideo) {
-                    updateNote.innerText = "Starting video";
-                    trackButton.innerText = "Turn Off video";
-                    contextTracker.startVideo(contextTracker);
-                } else {
-                    updateNote.innerText = "Stopping video";
-                    trackButton.innerText = "Turn On video";
-                    handTrack.stopVideo(video);
-                    isVideo = false;
-                    updateNote.innerText = "Video stopped";
-                }
-            });
 
             const input = document.getElementById("upload-model-input");
             input.addEventListener(
@@ -94934,6 +94919,24 @@ class Track {
                 },
                 false
             );
+        });
+    }
+
+    setupTrackButton() {
+        let trackButton = document.getElementById("trackbutton");
+        trackButton.disabled = false;
+        trackButton.addEventListener("click", function () {
+            if (!isVideo) {
+                updateNote.innerText = "Starting video";
+                trackButton.innerText = "Turn Off video";
+                contextTracker.startVideo(contextTracker);
+            } else {
+                updateNote.innerText = "Stopping video";
+                trackButton.innerText = "Turn On video";
+                handTrack.stopVideo(video);
+                isVideo = false;
+                updateNote.innerText = "Video stopped";
+            }
         });
     }
 
@@ -95029,6 +95032,12 @@ class Track {
 }
 
 function noop() { }
+function assign(tar, src) {
+    // @ts-ignore
+    for (const k in src)
+        tar[k] = src[k];
+    return tar;
+}
 function run(fn) {
     return fn();
 }
@@ -95047,6 +95056,31 @@ function safe_not_equal(a, b) {
 function is_empty(obj) {
     return Object.keys(obj).length === 0;
 }
+function append(target, node) {
+    target.appendChild(node);
+}
+function append_styles(target, style_sheet_id, styles) {
+    const append_styles_to = get_root_for_style(target);
+    if (!append_styles_to.getElementById(style_sheet_id)) {
+        const style = element('style');
+        style.id = style_sheet_id;
+        style.textContent = styles;
+        append_stylesheet(append_styles_to, style);
+    }
+}
+function get_root_for_style(node) {
+    if (!node)
+        return document;
+    const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+    if (root && root.host) {
+        return root;
+    }
+    return node.ownerDocument;
+}
+function append_stylesheet(node, style) {
+    append(node.head || node, style);
+    return style.sheet;
+}
 function insert(target, node, anchor) {
     target.insertBefore(node, anchor || null);
 }
@@ -95058,8 +95092,43 @@ function detach(node) {
 function element(name) {
     return document.createElement(name);
 }
+function text(data) {
+    return document.createTextNode(data);
+}
+function space() {
+    return text(' ');
+}
+function empty() {
+    return text('');
+}
+function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
+}
+function attr(node, attribute, value) {
+    if (value == null)
+        node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+        node.setAttribute(attribute, value);
+}
 function children(element) {
     return Array.from(element.childNodes);
+}
+function set_data(text, data) {
+    data = '' + data;
+    if (text.wholeText !== data)
+        text.data = data;
+}
+function set_style(node, key, value, important) {
+    if (value === null) {
+        node.style.removeProperty(key);
+    }
+    else {
+        node.style.setProperty(key, value, important ? 'important' : '');
+    }
+}
+function toggle_class(element, name, toggle) {
+    element.classList[toggle ? 'add' : 'remove'](name);
 }
 
 let current_component;
@@ -95163,11 +95232,84 @@ function update($$) {
     }
 }
 const outroing = new Set();
+let outros;
+function group_outros() {
+    outros = {
+        r: 0,
+        c: [],
+        p: outros // parent group
+    };
+}
+function check_outros() {
+    if (!outros.r) {
+        run_all(outros.c);
+    }
+    outros = outros.p;
+}
 function transition_in(block, local) {
     if (block && block.i) {
         outroing.delete(block);
         block.i(local);
     }
+}
+function transition_out(block, local, detach, callback) {
+    if (block && block.o) {
+        if (outroing.has(block))
+            return;
+        outroing.add(block);
+        outros.c.push(() => {
+            outroing.delete(block);
+            if (callback) {
+                if (detach)
+                    block.d(1);
+                callback();
+            }
+        });
+        block.o(local);
+    }
+    else if (callback) {
+        callback();
+    }
+}
+
+function get_spread_update(levels, updates) {
+    const update = {};
+    const to_null_out = {};
+    const accounted_for = { $$scope: 1 };
+    let i = levels.length;
+    while (i--) {
+        const o = levels[i];
+        const n = updates[i];
+        if (n) {
+            for (const key in o) {
+                if (!(key in n))
+                    to_null_out[key] = 1;
+            }
+            for (const key in n) {
+                if (!accounted_for[key]) {
+                    update[key] = n[key];
+                    accounted_for[key] = 1;
+                }
+            }
+            levels[i] = n;
+        }
+        else {
+            for (const key in o) {
+                accounted_for[key] = 1;
+            }
+        }
+    }
+    for (const key in to_null_out) {
+        if (!(key in update))
+            update[key] = undefined;
+    }
+    return update;
+}
+function get_spread_object(spread_props) {
+    return typeof spread_props === 'object' && spread_props !== null ? spread_props : {};
+}
+function create_component(block) {
+    block && block.c();
 }
 function mount_component(component, target, anchor, customElement) {
     const { fragment, after_update } = component.$$;
@@ -95301,32 +95443,512 @@ class SvelteComponent {
     }
 }
 
-/* src\components\svelte\testComponent.svelte generated by Svelte v3.55.1 */
+/* src\components\svelte\everseComponents\button.svelte generated by Svelte v3.55.1 */
 
-function create_fragment(ctx) {
-	let p;
+function create_else_block_1(ctx) {
+	let button;
+	let t;
+	let mounted;
+	let dispose;
 
 	return {
 		c() {
-			p = element("p");
-			p.textContent = "This is a cool Svelte component!";
+			button = element("button");
+			t = text(/*text*/ ctx[3]);
+			attr(button, "id", /*id*/ ctx[4]);
+			attr(button, "class", "button");
+			toggle_class(button, "primary", /*primary*/ ctx[1]);
+			toggle_class(button, "secondary", !/*primary*/ ctx[1]);
 		},
 		m(target, anchor) {
-			insert(target, p, anchor);
+			insert(target, button, anchor);
+			append(button, t);
+
+			if (!mounted) {
+				dispose = listen(button, "click", function () {
+					if (is_function(/*onClick*/ ctx[5])) /*onClick*/ ctx[5].apply(this, arguments);
+				});
+
+				mounted = true;
+			}
 		},
-		p: noop,
-		i: noop,
-		o: noop,
+		p(new_ctx, dirty) {
+			ctx = new_ctx;
+			if (dirty & /*text*/ 8) set_data(t, /*text*/ ctx[3]);
+
+			if (dirty & /*id*/ 16) {
+				attr(button, "id", /*id*/ ctx[4]);
+			}
+
+			if (dirty & /*primary*/ 2) {
+				toggle_class(button, "primary", /*primary*/ ctx[1]);
+			}
+
+			if (dirty & /*primary*/ 2) {
+				toggle_class(button, "secondary", !/*primary*/ ctx[1]);
+			}
+		},
 		d(detaching) {
-			if (detaching) detach(p);
+			if (detaching) detach(button);
+			mounted = false;
+			dispose();
 		}
 	};
 }
 
-class TestComponent extends SvelteComponent {
+// (10:2) {#if arrow}
+function create_if_block$1(ctx) {
+	let div;
+	let h5;
+	let a;
+	let t0;
+	let t1;
+
+	function select_block_type_1(ctx, dirty) {
+		if (/*primary*/ ctx[1]) return create_if_block_1$1;
+		return create_else_block;
+	}
+
+	let current_block_type = select_block_type_1(ctx);
+	let if_block = current_block_type(ctx);
+
+	return {
+		c() {
+			div = element("div");
+			h5 = element("h5");
+			a = element("a");
+			t0 = text(/*text*/ ctx[3]);
+			t1 = space();
+			if_block.c();
+			attr(a, "href", /*href*/ ctx[2]);
+			attr(a, "target", "_blank");
+			attr(a, "rel", "noreferrer");
+			toggle_class(a, "primary", /*primary*/ ctx[1]);
+			toggle_class(a, "secondary", !/*primary*/ ctx[1]);
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+			append(div, h5);
+			append(h5, a);
+			append(a, t0);
+			append(div, t1);
+			if_block.m(div, null);
+		},
+		p(ctx, dirty) {
+			if (dirty & /*text*/ 8) set_data(t0, /*text*/ ctx[3]);
+
+			if (dirty & /*href*/ 4) {
+				attr(a, "href", /*href*/ ctx[2]);
+			}
+
+			if (dirty & /*primary*/ 2) {
+				toggle_class(a, "primary", /*primary*/ ctx[1]);
+			}
+
+			if (dirty & /*primary*/ 2) {
+				toggle_class(a, "secondary", !/*primary*/ ctx[1]);
+			}
+
+			if (current_block_type !== (current_block_type = select_block_type_1(ctx))) {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
+
+				if (if_block) {
+					if_block.c();
+					if_block.m(div, null);
+				}
+			}
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+			if_block.d();
+		}
+	};
+}
+
+// (17:6) {:else}
+function create_else_block(ctx) {
+	let div;
+
+	return {
+		c() {
+			div = element("div");
+			attr(div, "class", "arrow");
+			set_style(div, "background-image", "url(./assets/images/YellowArrow.png)");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+		}
+	};
+}
+
+// (15:6) {#if primary}
+function create_if_block_1$1(ctx) {
+	let div;
+
+	return {
+		c() {
+			div = element("div");
+			attr(div, "class", "arrow");
+			set_style(div, "background-image", "url(./assets/images/RedArrow.png)");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+		}
+	};
+}
+
+function create_fragment$2(ctx) {
+	let if_block_anchor;
+
+	function select_block_type(ctx, dirty) {
+		if (/*arrow*/ ctx[0]) return create_if_block$1;
+		return create_else_block_1;
+	}
+
+	let current_block_type = select_block_type(ctx);
+	let if_block = current_block_type(ctx);
+
+	return {
+		c() {
+			if_block.c();
+			if_block_anchor = empty();
+		},
+		m(target, anchor) {
+			if_block.m(target, anchor);
+			insert(target, if_block_anchor, anchor);
+		},
+		p(ctx, [dirty]) {
+			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+				if_block.p(ctx, dirty);
+			} else {
+				if_block.d(1);
+				if_block = current_block_type(ctx);
+
+				if (if_block) {
+					if_block.c();
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				}
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if_block.d(detaching);
+			if (detaching) detach(if_block_anchor);
+		}
+	};
+}
+
+function instance$2($$self, $$props, $$invalidate) {
+	let { arrow = false } = $$props;
+	let { primary = false } = $$props;
+	let { href = '' } = $$props;
+	let { text = 'Button' } = $$props;
+	let { id = 'Button' } = $$props;
+
+	let { onClick = () => {
+		
+	} } = $$props;
+
+	$$self.$$set = $$props => {
+		if ('arrow' in $$props) $$invalidate(0, arrow = $$props.arrow);
+		if ('primary' in $$props) $$invalidate(1, primary = $$props.primary);
+		if ('href' in $$props) $$invalidate(2, href = $$props.href);
+		if ('text' in $$props) $$invalidate(3, text = $$props.text);
+		if ('id' in $$props) $$invalidate(4, id = $$props.id);
+		if ('onClick' in $$props) $$invalidate(5, onClick = $$props.onClick);
+	};
+
+	return [arrow, primary, href, text, id, onClick];
+}
+
+class Button extends SvelteComponent {
 	constructor(options) {
 		super();
-		init(this, options, null, create_fragment, safe_not_equal, {});
+
+		init(this, options, instance$2, create_fragment$2, safe_not_equal, {
+			arrow: 0,
+			primary: 1,
+			href: 2,
+			text: 3,
+			id: 4,
+			onClick: 5
+		});
+	}
+}
+
+/* src\components\svelte\everseComponents\fileUpload.svelte generated by Svelte v3.55.1 */
+
+function create_fragment$1(ctx) {
+	let label;
+	let t0;
+	let label_id_value;
+	let t1;
+	let input;
+
+	return {
+		c() {
+			label = element("label");
+			t0 = text(/*text*/ ctx[0]);
+			t1 = space();
+			input = element("input");
+			attr(label, "for", /*id*/ ctx[1]);
+			attr(label, "id", label_id_value = /*id*/ ctx[1] + 'Button');
+			attr(label, "class", "button");
+			attr(input, "type", "file");
+			attr(input, "id", /*id*/ ctx[1]);
+		},
+		m(target, anchor) {
+			insert(target, label, anchor);
+			append(label, t0);
+			insert(target, t1, anchor);
+			insert(target, input, anchor);
+		},
+		p(ctx, [dirty]) {
+			if (dirty & /*text*/ 1) set_data(t0, /*text*/ ctx[0]);
+
+			if (dirty & /*id*/ 2) {
+				attr(label, "for", /*id*/ ctx[1]);
+			}
+
+			if (dirty & /*id*/ 2 && label_id_value !== (label_id_value = /*id*/ ctx[1] + 'Button')) {
+				attr(label, "id", label_id_value);
+			}
+
+			if (dirty & /*id*/ 2) {
+				attr(input, "id", /*id*/ ctx[1]);
+			}
+		},
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(label);
+			if (detaching) detach(t1);
+			if (detaching) detach(input);
+		}
+	};
+}
+
+function instance$1($$self, $$props, $$invalidate) {
+	let { text = 'Upload File' } = $$props;
+	let { id = 'uploadFile' } = $$props;
+
+	$$self.$$set = $$props => {
+		if ('text' in $$props) $$invalidate(0, text = $$props.text);
+		if ('id' in $$props) $$invalidate(1, id = $$props.id);
+	};
+
+	return [text, id];
+}
+
+class FileUpload extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance$1, create_fragment$1, safe_not_equal, { text: 0, id: 1 });
+	}
+}
+
+/* src\components\svelte\everseComponents\input.svelte generated by Svelte v3.55.1 */
+
+function add_css(target) {
+	append_styles(target, "svelte-14917m4", ":root{--primary-color:#dc3545;--secondary-color:#f7df4f}.arrow{height:1rem;background-repeat:no-repeat;background-position:center;background-size:contain}.primary{color:var(--primary-color) !important}.secondary{color:var(--secondary-color) !important}.button{width:100%;padding:0.25rem;margin:0.25rem 0;background-color:#18263C;border-radius:6px;border:none !important;font-weight:bold}.button:hover{cursor:pointer;opacity:0.95}");
+}
+
+// (11:26) 
+function create_if_block_1(ctx) {
+	let fileupload;
+	let current;
+	const fileupload_spread_levels = [/*props*/ ctx[1]];
+	let fileupload_props = {};
+
+	for (let i = 0; i < fileupload_spread_levels.length; i += 1) {
+		fileupload_props = assign(fileupload_props, fileupload_spread_levels[i]);
+	}
+
+	fileupload = new FileUpload({ props: fileupload_props });
+
+	return {
+		c() {
+			create_component(fileupload.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(fileupload, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const fileupload_changes = (dirty & /*props*/ 2)
+			? get_spread_update(fileupload_spread_levels, [get_spread_object(/*props*/ ctx[1])])
+			: {};
+
+			fileupload.$set(fileupload_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(fileupload.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(fileupload.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(fileupload, detaching);
+		}
+	};
+}
+
+// (9:0) {#if type === 'button'}
+function create_if_block(ctx) {
+	let button;
+	let current;
+	const button_spread_levels = [/*props*/ ctx[1]];
+	let button_props = {};
+
+	for (let i = 0; i < button_spread_levels.length; i += 1) {
+		button_props = assign(button_props, button_spread_levels[i]);
+	}
+
+	button = new Button({ props: button_props });
+
+	return {
+		c() {
+			create_component(button.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(button, target, anchor);
+			current = true;
+		},
+		p(ctx, dirty) {
+			const button_changes = (dirty & /*props*/ 2)
+			? get_spread_update(button_spread_levels, [get_spread_object(/*props*/ ctx[1])])
+			: {};
+
+			button.$set(button_changes);
+		},
+		i(local) {
+			if (current) return;
+			transition_in(button.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(button.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(button, detaching);
+		}
+	};
+}
+
+function create_fragment(ctx) {
+	let current_block_type_index;
+	let if_block;
+	let if_block_anchor;
+	let current;
+	const if_block_creators = [create_if_block, create_if_block_1];
+	const if_blocks = [];
+
+	function select_block_type(ctx, dirty) {
+		if (/*type*/ ctx[0] === 'button') return 0;
+		if (/*type*/ ctx[0] === 'file') return 1;
+		return -1;
+	}
+
+	if (~(current_block_type_index = select_block_type(ctx))) {
+		if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+	}
+
+	return {
+		c() {
+			if (if_block) if_block.c();
+			if_block_anchor = empty();
+		},
+		m(target, anchor) {
+			if (~current_block_type_index) {
+				if_blocks[current_block_type_index].m(target, anchor);
+			}
+
+			insert(target, if_block_anchor, anchor);
+			current = true;
+		},
+		p(ctx, [dirty]) {
+			let previous_block_index = current_block_type_index;
+			current_block_type_index = select_block_type(ctx);
+
+			if (current_block_type_index === previous_block_index) {
+				if (~current_block_type_index) {
+					if_blocks[current_block_type_index].p(ctx, dirty);
+				}
+			} else {
+				if (if_block) {
+					group_outros();
+
+					transition_out(if_blocks[previous_block_index], 1, 1, () => {
+						if_blocks[previous_block_index] = null;
+					});
+
+					check_outros();
+				}
+
+				if (~current_block_type_index) {
+					if_block = if_blocks[current_block_type_index];
+
+					if (!if_block) {
+						if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+						if_block.c();
+					} else {
+						if_block.p(ctx, dirty);
+					}
+
+					transition_in(if_block, 1);
+					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+				} else {
+					if_block = null;
+				}
+			}
+		},
+		i(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d(detaching) {
+			if (~current_block_type_index) {
+				if_blocks[current_block_type_index].d(detaching);
+			}
+
+			if (detaching) detach(if_block_anchor);
+		}
+	};
+}
+
+function instance($$self, $$props, $$invalidate) {
+	let { type = 'button' } = $$props;
+	let { props = {} } = $$props;
+
+	$$self.$$set = $$props => {
+		if ('type' in $$props) $$invalidate(0, type = $$props.type);
+		if ('props' in $$props) $$invalidate(1, props = $$props.props);
+	};
+
+	return [type, props];
+}
+
+class Input extends SvelteComponent {
+	constructor(options) {
+		super();
+		init(this, options, instance, create_fragment, safe_not_equal, { type: 0, props: 1 }, add_css);
 	}
 }
 
@@ -95335,8 +95957,10 @@ const ifcFilePath = "";
 const baseScene = new ThreeScene();
 new Picker(baseScene, ifcModels);
 const loader = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
-new Track(loader, baseScene);
+const track = new Track(loader, baseScene);
 
-window.MyComponent = function (options) {
-  return new TestComponent(options);
+window.track = track;
+
+window.input = function (options) {
+  return new Input(options);
 };
