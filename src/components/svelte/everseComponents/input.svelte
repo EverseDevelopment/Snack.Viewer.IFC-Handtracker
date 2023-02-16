@@ -31,7 +31,7 @@
 }
 :global(.button) {
   width: 100%;
-  padding: 0.25rem;
+  padding: 0.25rem 1rem;
   margin: 0.25rem 0;
   background-color: #18263C;
   border-radius: 6px;

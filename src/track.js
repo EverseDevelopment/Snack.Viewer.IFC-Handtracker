@@ -33,16 +33,6 @@ export class Track {
 
             model = lmodel
             updateNote.innerText = "Loaded Model!"
-
-            const input = document.getElementById("upload-model-input");
-            input.addEventListener(
-                "change",
-                (changed) => {
-                    console.log(changed);
-                    manager.RefreshModel(changed);
-                },
-                false
-            );
         });
     }
 
@@ -62,6 +52,18 @@ export class Track {
                 updateNote.innerText = "Video stopped"
             }
         });
+    }
+
+    setupUploadModelInput() {
+        const input = document.getElementById("upload-model-input");
+        input.addEventListener(
+            "change",
+            (changed) => {
+                console.log(changed);
+                manager.RefreshModel(changed);
+            },
+            false
+        );
     }
 
     startVideo(tracker) {

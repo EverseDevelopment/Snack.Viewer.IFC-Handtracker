@@ -52,12 +52,24 @@
     <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
 
     <!--Upload new model-->
-    <div>
-      <label for="upload-model-input" id="uploadbutton" class="general-button">
-        Upload New Model
-      </label>
-      <input type="file" id="upload-model-input">
-    </div>
+    <div id="uploadbutton"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          new input({
+              target: document.getElementById("uploadbutton"),
+              props: {
+                type: 'file',
+                props: {
+                  primary: true,
+                  text: 'Upload New Model',
+                  id: 'upload-model-input',
+                },
+              }
+          });
+          const track = window.track
+          track.setupUploadModelInput()
+      });
+    </script>
   </div>
 
   </div>
