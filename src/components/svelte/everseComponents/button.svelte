@@ -21,3 +21,12 @@
   {:else}
     <button {id} class="button" on:click={onClick} class:primary class:secondary={!primary}>{text}</button>
   {/if}
+
+  <style>
+  .arrow {
+    height: 1rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  </style>

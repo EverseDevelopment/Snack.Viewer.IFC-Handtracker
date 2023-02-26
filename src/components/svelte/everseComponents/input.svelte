@@ -16,13 +16,8 @@
   :global(:root) {
     --primary-color: #dc3545;
     --secondary-color: #f7df4f;
+    --background-color: #18263C;
   }
-:global(.arrow) {
-  height: 1rem;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
 :global(.primary) {
   color: var(--primary-color) !important;
 }
@@ -33,7 +28,7 @@
   width: 100%;
   padding: 0.25rem 1rem;
   margin: 0.25rem 0;
-  background-color: #18263C;
+  background-color: var(--background-color);
   border-radius: 6px;
   border: none !important;
   font-weight: bold;

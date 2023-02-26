@@ -81,7 +81,7 @@
   </div>
 
   <!-- Project info !-->
-  <div class="info-wrapper" data-target="#info-modal" data-toggle="modal">
+  <div class="info-wrapper">
     <img src="./assets/images/infoIcon.png" id="info-logo" alt="logo" />
   </div>
 
@@ -91,7 +91,7 @@
   </a>
 
   <!-- Start Modal -->
-  <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  <!-- <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -116,7 +116,19 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <div id="info-modal"></div>
+    <script>
+      const infoLogo = document.getElementById('info-logo')      
+      document.addEventListener("DOMContentLoaded", function (event) {
+          new Modal({
+              target: document.getElementById("info-modal"),
+              props: {
+                activator: infoLogo,
+              }
+          });         
+      });
+    </script>
   <!-- End Modal -->
 
   <!-- Start How to Modal -->

@@ -3,6 +3,7 @@ import { ThreeScene } from './components/scene/scene';
 import { IfcManager } from './components/ifc/ifc-manager';
 import { Track } from './track';
 import input from './components/svelte/everseComponents/input.svelte'
+import Modal from './components/svelte/everseComponents/Modal.svelte'
 
 const ifcModels = [];
 const ifcFilePath = "";
@@ -16,3 +17,7 @@ window.track = track
 window.input = function (options) {
   return new input(options);
 };
+
+window.Modal = function (options) {
+  return new Modal(options)
+}
