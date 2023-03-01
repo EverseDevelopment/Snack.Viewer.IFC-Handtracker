@@ -16,12 +16,39 @@
 </head>
 
 <body>
+  <div id="home-modal"></div>
+  <script>    
+    document.addEventListener("DOMContentLoaded", function (event) {
+        new HomeModal({
+            target: document.getElementById("home-modal"),
+        });         
+    });
+  </script>
   <div class="scene-wrapper">
     <div class="mb10 video-controller">
       <div class="video-wrapper">
-        <button id="trackbutton" type="button" class="general-button">
+        <!-- <button id="trackbutton" type="button" class="general-button">
           Turn On video
-        </button>
+        </button> -->
+        <div id="turn-on-video"></div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function (event) {
+              new input({
+                  target: document.getElementById("turn-on-video"),
+                  props: {
+                    type: 'button',
+                    props: {
+                      primary: true,
+                      text: 'Turn On Video',
+                      id: 'trackbutton',
+                      onClick: () => {console.log('Hiya!')}
+                    },
+                  }
+              });
+              const track = window.track
+              track.setupTrackButton()
+          });
+        </script>
         <video class="videobox canvasbox" autoplay="autoplay" id="myvideo" style="display: none"></video>
         <canvas id="canvas" class="border canvasbox"></canvas>
       </div>
@@ -33,12 +60,24 @@
     <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
 
     <!--Upload new model-->
-    <div>
-      <label for="upload-model-input" id="uploadbutton" class="general-button">
-        Upload New Model
-      </label>
-      <input type="file" id="upload-model-input">
-    </div>
+    <div id="uploadbutton"></div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          new input({
+              target: document.getElementById("uploadbutton"),
+              props: {
+                type: 'file',
+                props: {
+                  primary: true,
+                  text: 'Upload New Model',
+                  id: 'upload-model-input',
+                },
+              }
+          });
+          const track = window.track
+          track.setupUploadModelInput()
+      });
+    </script>
   </div>
 
   </div>
@@ -50,7 +89,7 @@
   </div>
 
   <!-- Project info !-->
-  <div class="info-wrapper" data-target="#info-modal" data-toggle="modal">
+  <div class="info-wrapper">
     <img src="./assets/images/infoIcon.png" id="info-logo" alt="logo" />
   </div>
 
@@ -60,44 +99,22 @@
   </a>
 
   <!-- Start Modal -->
-  <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <h3 class="modal-title">DATA MODEL</h3>
-          <div class="info-description">
-            <h5>Description</h5>
-            <p>
-              This is a 3D viewer to enable user to move the model using Image
-              gesture recognition
-            </p>
-          </div>
-          <div class="info-description">
-            <h5>Three.js</h5>
-            <p>AI</p>
-            <p>Javascript</p>
-          </div>
-          <div class="info-description">
-            <h5>Services</h5>
-            <p>3D viewer</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="info-modal"></div>
+    <script>
+      const infoLogo = document.getElementById('info-logo')      
+      document.addEventListener("DOMContentLoaded", function (event) {
+          new InfoModal({
+              target: document.getElementById("info-modal"),
+              props: {
+                activator: infoLogo,
+              }
+          });         
+      });
+    </script>
   <!-- End Modal -->
 
   <!-- Start How to Modal -->
-  <div class="modal fade" id="how-to-modal" tabindex="-1" role="dialog" aria-labelledby="howToModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-body text-center">
-          <img src="./assets/images/howToMove.gif" width="200px" />
-        </div>
-      </div>
-    </div>
-  </div>
+  <div id="how-to-modal"></div>
   <!-- End Modal -->
 </body>
 

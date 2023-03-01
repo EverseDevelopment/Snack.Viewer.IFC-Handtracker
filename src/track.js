@@ -3,7 +3,6 @@ import { ThreeScene } from "./components/scene/scene";
 let video = null;
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 let manager = null;
 let loader = null;
@@ -34,39 +33,63 @@ export class Track {
 
             model = lmodel
             updateNote.innerText = "Loaded Model!"
-            trackButton.disabled = false
-            trackButton.addEventListener("click", function () {
-                if (!isVideo) {
-                    updateNote.innerText = "Starting video"
-                    trackButton.innerText = "Turn Off video"
-                    contextTracker.startVideo(contextTracker);
-                } else {
-                    updateNote.innerText = "Stopping video"
-                    trackButton.innerText = "Turn On video"
-                    handTrack.stopVideo(video)
-                    isVideo = false;
-                    updateNote.innerText = "Video stopped"
-                }
-            });
-
-            const input = document.getElementById("upload-model-input");
-            input.addEventListener(
-                "change",
-                (changed) => {
-                    console.log(changed);
-                    manager.RefreshModel(changed);
-                },
-                false
-            );
         });
+    }
+
+    setupTrackButton() {
+        let trackButton = document.getElementById("trackbutton");
+        trackButton.disabled = false
+        trackButton.addEventListener("click", function () {
+            if (!isVideo) {
+                updateNote.innerText = "Starting video"
+                trackButton.innerText = "Turn Off video"
+                contextTracker.startVideo(contextTracker);
+            } else {
+                updateNote.innerText = "Stopping video"
+                trackButton.innerText = "Turn On video"
+                handTrack.stopVideo(video)
+                isVideo = false;
+                updateNote.innerText = "Video stopped"
+            }
+        });
+    }
+
+    setupUploadModelInput() {
+        const input = document.getElementById("upload-model-input");
+        input.addEventListener(
+            "change",
+            (changed) => {
+                console.log(changed);
+                manager.RefreshModel(changed);
+            },
+            false
+        );
     }
 
     startVideo(tracker) {
         handTrack.startVideo(video).then(function (status) {
             console.log("video started", status);
             if (status) {
-                const howToBtn = '<button class="btn mt-1 w-100" data-toggle="modal" data-target="#how-to-modal">How to use it</button>';
-                updateNote.innerHTML = howToBtn;
+                updateNote.innerText = ""
+                new input({
+                    target:updateNote,
+                    props: {
+                        type: 'button',
+                        props: {
+                            text: 'How to use it',
+                            id: 'how-to-button'
+                        }
+                    }
+                })
+                if (!document.getElementById('HowToModalComponent')) {  
+                    const howToButton = document.getElementById('how-to-button')
+                    new HowToModal({
+                        target: document.getElementById("how-to-modal"),
+                        props: {
+                          activator: howToButton,
+                        }
+                    });                             
+                }
                 isVideo = true
                 tracker.runDetection(tracker)
             } else {
