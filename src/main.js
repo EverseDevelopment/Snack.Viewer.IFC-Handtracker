@@ -5,6 +5,7 @@ import { Track } from './track';
 import input from './components/svelte/everseComponents/input.svelte'
 import HomeModal from './components/svelte/HomeModal.svelte'
 import InfoModal from './components/svelte/InfoModal.svelte'
+import HowToModal from './components/svelte/HowToModal.svelte'
 
 const ifcModels = [];
 const ifcFilePath = "";
@@ -24,4 +25,7 @@ window.HomeModal = function (options) {
 }
 window.InfoModal = function (options) {
   return new InfoModal(options)
+}
+window.HowToModal = function (options) {
+  return new HowToModal(options)
 }

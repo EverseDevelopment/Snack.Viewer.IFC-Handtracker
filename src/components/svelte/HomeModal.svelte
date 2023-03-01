@@ -4,6 +4,7 @@
 
 
   let displayModal = true
+  
   const props = {
     arrow: true,
     primary: true,

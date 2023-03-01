@@ -70,8 +70,26 @@ export class Track {
         handTrack.startVideo(video).then(function (status) {
             console.log("video started", status);
             if (status) {
-                const howToBtn = '<button class="btn mt-1 w-100" data-toggle="modal" data-target="#how-to-modal">How to use it</button>';
-                updateNote.innerHTML = howToBtn;
+                updateNote.innerText = ""
+                new input({
+                    target:updateNote,
+                    props: {
+                        type: 'button',
+                        props: {
+                            text: 'How to use it',
+                            id: 'how-to-button'
+                        }
+                    }
+                })
+                if (!document.getElementById('HowToModalComponent')) {  
+                    const howToButton = document.getElementById('how-to-button')
+                    new HowToModal({
+                        target: document.getElementById("how-to-modal"),
+                        props: {
+                          activator: howToButton,
+                        }
+                    });                             
+                }
                 isVideo = true
                 tracker.runDetection(tracker)
             } else {
