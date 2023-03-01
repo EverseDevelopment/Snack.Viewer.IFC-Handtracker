@@ -1,16 +1,16 @@
 <script>
   export let arrow = false
   export let primary = false
-  export let href = ''
   export let text = 'Button'
   export let id = 'Button'
   export let onClick = () => {}
 </script>
 
   {#if arrow}
-    <div>
-      <h5>
-        <a {href} target="_blank" rel="noreferrer" class:primary class:secondary={!primary}>{text}</a>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div on:click={onClick} class="arrow-button">
+      <h5 class:primary class:secondary={!primary}>
+        {text}        
       </h5>
       {#if primary}
         <div class="arrow" style="background-image: url(./assets/images/RedArrow.png);"></div>
@@ -19,7 +19,7 @@
       {/if}
     </div>
   {:else}
-    <button {id} class="button" on:click={onClick} class:primary class:secondary={!primary}>{text}</button>
+    <button {id} class="button" class:primary class:secondary={!primary}>{text}</button>
   {/if}
 
   <style>
@@ -28,5 +28,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+  }
+  .arrow-button {
+    font-size: medium;
+  }
+  .arrow-button:hover {
+    cursor: pointer;
   }
   </style>

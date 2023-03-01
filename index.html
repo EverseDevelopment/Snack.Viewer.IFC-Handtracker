@@ -16,6 +16,14 @@
 </head>
 
 <body>
+  <div id="home-modal"></div>
+  <script>    
+    document.addEventListener("DOMContentLoaded", function (event) {
+        new HomeModal({
+            target: document.getElementById("home-modal"),
+        });         
+    });
+  </script>
   <div class="scene-wrapper">
     <div class="mb10 video-controller">
       <div class="video-wrapper">
@@ -121,7 +129,7 @@
     <script>
       const infoLogo = document.getElementById('info-logo')      
       document.addEventListener("DOMContentLoaded", function (event) {
-          new Modal({
+          new InfoModal({
               target: document.getElementById("info-modal"),
               props: {
                 activator: infoLogo,

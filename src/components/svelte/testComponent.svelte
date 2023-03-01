@@ -1,1 +1,0 @@
-<p>This is a cool Svelte component!</p>
