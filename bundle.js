@@ -94915,7 +94915,6 @@ class Track {
     setupTrackButton() {
         let trackButtonOn = document.getElementById("trackButtonON");
         let trackButtonOff = document.getElementById("trackButtonOFF");
-        console.log('>>>>>', trackButtonOn);
         trackButtonOn.disabled = false;
         trackButtonOff.disabled = false;
 
