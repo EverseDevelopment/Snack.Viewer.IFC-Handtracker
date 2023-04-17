@@ -1,0 +1,35 @@
+@import "variables";
+body{
+  margin: 0;
+  padding: 0 !important;
+}
+section{
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.fab-primary{
+  border: 0;
+  border-radius: 50%;
+  background-color: $primary;
+  padding: 0.8rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 0px #888686;
+    margin: 1rem;
+  transition: 0.5s;
+  img{
+    transition: 0.5s;
+  }
+  &:hover{
+    background-color: $secondary;
+    img{
+      filter: brightness(0) invert(1);
+    }
+  }
+}
+
+.hidden{
+  display: none;
+}

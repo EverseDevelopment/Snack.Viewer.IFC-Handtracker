@@ -1,0 +1,33 @@
+@import "../variables.scss";
+.home-header{
+  background-color: $secondary;
+  padding: 1rem 4rem;
+  position: absolute;
+  z-index: 10;
+  top:0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__menu{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    &--item{
+      width: 8rem;
+      list-style: none;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: large;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+      &:hover{
+      color: #dc3545;
+    }
+    }
+  }
+}
