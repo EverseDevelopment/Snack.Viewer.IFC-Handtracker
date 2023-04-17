@@ -3,7 +3,7 @@
 
   export let activator = null
 </script>
-<Modal {activator}>
+<Modal {activator}  width={'auto'}>
   <div slot="header">
     <h1 class="header--title">DATA MODEL</h1>
   </div>

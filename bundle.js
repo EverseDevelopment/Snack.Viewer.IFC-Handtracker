@@ -96533,6 +96533,7 @@ function create_if_block(ctx) {
 
 	modal = new Modal({
 			props: {
+				width: 'auto',
 				$$slots: { body: [create_body_slot$2] },
 				$$scope: { ctx }
 			}
@@ -96798,6 +96799,7 @@ function create_fragment$1(ctx) {
 	modal = new Modal({
 			props: {
 				activator: /*activator*/ ctx[0],
+				width: 'auto',
 				$$slots: {
 					body: [create_body_slot$1],
 					header: [create_header_slot]

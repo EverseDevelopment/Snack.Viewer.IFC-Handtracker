@@ -13,7 +13,7 @@
   }
 </script>
 {#if displayModal}
-  <Modal>
+  <Modal width={'auto'}>
     <div slot="body">
       <div class="container">
         <div class="container__text">
