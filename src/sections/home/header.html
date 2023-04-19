@@ -1,0 +1,39 @@
+<header class="home-header">
+  <!-- Company Logo !-->
+  <a href="https://www.e-verse.com" target="_blank">
+     <img src="./assets/images/Logo2x.svg" alt="logo">
+  </a>
+    <ul class="home-header__menu">
+        <li class="home-header__menu--item" id="how-to-use">
+          How To Use
+        </li>
+        <li class="home-header__menu--item">
+            <img src="./assets/icons/info.svg" id="info-logo" alt="logo" title="Information" />
+        </li>
+
+    </ul>
+
+    </div>
+</header>
+<!-- Start Modal -->
+<div id="info-modal"></div>
+<!-- End Modal -->
+<div id="how-to-modal"></div>
+<script>
+  const infoLogo = document.getElementById('info-logo')
+  const howToUseBtn = document.getElementById('how-to-use')
+  document.addEventListener("DOMContentLoaded", function (event) {
+      new InfoModal({
+          target: document.getElementById("info-modal"),
+          props: {
+            activator: infoLogo,
+          }
+      });
+      new HowToModal({
+          target: document.getElementById("home-modal"),
+          props: {
+            activator: howToUseBtn,
+          }
+      });
+  });
+</script>

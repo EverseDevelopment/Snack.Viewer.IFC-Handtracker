@@ -50,19 +50,59 @@
   :global(.header--title) {
     margin-bottom: 1rem;
     font-weight: 700;
-    font-size: calc(1.375rem + 1.5vw);
-    color: #f7df4f;
+    font-size: xx-large;
+    color: #ffffff;
   }
   :global(.body--subtitle) {
     color: #f94f46;
     font-weight: 700;
-    font-size: medium;
+    font-size: large;
   }
   :global(.body--text) {
     color: grey;
     margin-bottom: 1rem;
   }
-
+  :global(.body--image) {
+   width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  :global(.body--list) {
+    margin: 0;
+  }
+  :global(.body--list--item) {
+    color: grey;
+    list-style: none;
+    position: relative;
+    padding-left: 2rem;
+  }
+    :global(.body--list--item)::before {
+      content: '';
+      position: absolute;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: #f94f46;
+      border-radius: 50%;
+      left: 10px;
+      top: 7px;
+  }
+  :global(.body-container) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  :global(.body-container__cell) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+  }
+  :global(.body-container__img) {
+    height: 4rem;
+    filter: brightness(0) invert(1);
+  }
   .close {
     color: #aaa;
     float: right;

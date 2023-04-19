@@ -37,20 +37,24 @@ export class Track {
     }
 
     setupTrackButton() {
-        let trackButton = document.getElementById("trackbutton");
-        trackButton.disabled = false
-        trackButton.addEventListener("click", function () {
-            if (!isVideo) {
+        let trackButtonOn = document.getElementById("trackButtonON");
+        let trackButtonOff = document.getElementById("trackButtonOFF");
+        trackButtonOn.disabled = false
+        trackButtonOff.disabled = false
+
+        trackButtonOn.addEventListener("click", function () {
                 updateNote.innerText = "Starting video"
-                trackButton.innerText = "Turn Off video"
                 contextTracker.startVideo(contextTracker);
-            } else {
+                trackButtonOn.classList.add('hidden')
+                trackButtonOff.classList.remove('hidden')
+        });
+        trackButtonOff.addEventListener("click", function () {
                 updateNote.innerText = "Stopping video"
-                trackButton.innerText = "Turn On video"
                 handTrack.stopVideo(video)
                 isVideo = false;
                 updateNote.innerText = "Video stopped"
-            }
+                trackButtonOn.classList.remove('hidden')
+                trackButtonOff.classList.add('hidden')
         });
     }
 
@@ -71,25 +75,6 @@ export class Track {
             console.log("video started", status);
             if (status) {
                 updateNote.innerText = ""
-                new input({
-                    target:updateNote,
-                    props: {
-                        type: 'button',
-                        props: {
-                            text: 'How to use it',
-                            id: 'how-to-button'
-                        }
-                    }
-                })
-                if (!document.getElementById('HowToModalComponent')) {  
-                    const howToButton = document.getElementById('how-to-button')
-                    new HowToModal({
-                        target: document.getElementById("how-to-modal"),
-                        props: {
-                          activator: howToButton,
-                        }
-                    });                             
-                }
                 isVideo = true
                 tracker.runDetection(tracker)
             } else {

@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  padding: 0 !important;
+}
+
+section {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.fab-primary {
+  border: 0;
+  border-radius: 50%;
+  background-color: #f94f46;
+  padding: 0.8rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 0px #888686;
+  margin: 1rem;
+  transition: 0.5s;
+}
+.fab-primary img {
+  transition: 0.5s;
+}
+.fab-primary:hover {
+  background-color: #18263c;
+}
+.fab-primary:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.hidden {
+  display: none;
+}
+
+.banner__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.banner__video {
+  position: absolute;
+  right: 1px;
+  top: 44%;
+  width: 231px;
+  padding: 0 1rem 1rem;
+  background-color: white;
+  box-shadow: -4px 1px 12px -3px #d0cfcf;
+  border-radius: 10px;
+  cursor: move;
+}
+.banner__footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.banner__footer--container {
+  max-width: 15rem;
+}
+.home-header {
+  background-color: #18263c;
+  padding: 1rem 4rem;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.home-header__menu {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.home-header__menu--item {
+  width: 8rem;
+  list-style: none;
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.home-header__menu--item:hover {
+  color: #dc3545;
+}
+.video__frame {
+  position: absolute;
+  right: 1px;
+  top: 44%;
+  width: 231px;
+  padding: 0 1rem 1rem;
+  background-color: #18263c;
+  box-shadow: -4px 1px 12px -3px #d0cfcf;
+  border-radius: 10px;
+  cursor: move;
+}
+.video__left-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  border: 0;
+  border-radius: 10px 0 0 10px;
+  background-color: #18263c;
+  padding: 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 0px #888686;
+}
+.video__left-btn img {
+  width: 30px;
+  filter: brightness(0) invert(1);
+}
+.video__top-btn {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background-color: #18263c;
+  padding: 3px;
+  cursor: pointer;
+}
+.video__top-btn img {
+  width: 30px;
+  filter: brightness(0) invert(1);
+}

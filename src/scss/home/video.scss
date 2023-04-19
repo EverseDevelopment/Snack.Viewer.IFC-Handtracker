@@ -1,0 +1,43 @@
+@import "../variables.scss";
+.video{
+  &__frame {
+  position: absolute;
+  right: 1px;
+  top: 44%;
+  width: 231px;
+  padding: 0 1rem 1rem;
+  background-color: $secondary;
+  box-shadow: -4px 1px 12px -3px #d0cfcf;
+  border-radius: 10px;
+  cursor: move;
+}
+  &__left-btn{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    border: 0;
+    border-radius: 10px 0 0 10px;
+    background-color: $secondary;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px 0px #888686;
+        img{
+      width: 30px;
+      filter: brightness(0) invert(1);
+    }
+  }
+  &__top-btn{
+    position: absolute;
+    right: 0;
+    top: -20px;
+    border: 0;
+    border-radius: 8px 8px 0 0;
+    background-color: $secondary;
+    padding: 3px;
+    cursor: pointer;
+    img{
+      width: 30px;
+      filter: brightness(0) invert(1);
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.banner{
+  &__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    &--description{
+
+    }
+  }
+  &__video{
+    position: absolute;
+    right: 1px;
+    top: 44%;
+    width: 231px;
+    padding: 0 1rem 1rem;
+    background-color: white;
+    box-shadow: -4px 1px 12px -3px #d0cfcf;
+    border-radius: 10px;
+    cursor: move;
+  }
+  &__footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--container{
+      max-width: 15rem;
+    }
+  }
+}
