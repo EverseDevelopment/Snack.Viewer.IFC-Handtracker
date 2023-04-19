@@ -1,24 +1,50 @@
-<div class="banner__video" draggable="true">
+<div class="video__frame" draggable="true">
+       <button class="video__top-btn" id="down-arrow" onclick="hideVideo()" ontouchstart="hideVideo()">
+        <img src="./assets/icons/down-arrow.svg"  alt="logo" title="Hide video" />
+    </button>
     <div class="video-wrapper">
     <div id="turn-on-video"></div>
     <video class="videobox canvasbox" autoplay="autoplay" id="myvideo" style="display: none"></video>
     <canvas id="canvas" class="border canvasbox"></canvas>
   </div>
   <div id="updatenote" class="updatenote mt10" style="display: none"></div>
+
 </div>
+<div>
+
+</div>
+<button class="video__left-btn hidden" onclick="showVideo()" ontouchstart="showVideo()" id="left-arrow" title="Show video">
+    <img src="./assets/icons/left-arrow.svg" alt="logo" title="left" />
+</button>
 <script>
-const dragMe = document.querySelector('.banner__video');
+
+    var myListener = function() {
+        console.log('aki')
+document.querySelector('.video__frame').style.right = 0
+document.querySelector('.video__frame').style.left = 'auto'
+};
+var myListenerWithContext = myListener.bind(this);
+window.addEventListener('resize', myListenerWithContext);
+
+    function hideVideo() {
+        document.querySelector('.video__frame').classList.add("hidden");
+        document.getElementById("left-arrow").classList.remove("hidden");
+    }
+    function showVideo() {
+        document.querySelector('.video__frame').classList.remove("hidden");
+        document.getElementById("left-arrow").classList.add("hidden");
+    }
+
+const dragMe = document.querySelector('.video__frame');
     dragElement(dragMe);
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
+  var touchToTopElement = 0, touchToLeftElement = 0
     // otherwise, move the DIV from anywhere inside the DIV:
     elmnt.onmousedown = dragMouseDown;
-  }
+    elmnt.ontouchmove = touchMove;
+    elmnt.ontouchstart = touchstart;
 
   function dragMouseDown(e) {
     e = e || window.event;
@@ -30,6 +56,19 @@ function dragElement(elmnt) {
     // call a function whenever the cursor moves:
     document.onmousemove = elementDrag;
   }
+
+  function touchstart(e) {
+        e.preventDefault();
+        touchToTopElement = e.touches[0].pageY - elmnt.offsetTop
+        touchToLeftElement = e.touches[0].pageX - elmnt.offsetLeft
+  }
+
+  function touchMove(e) {
+    e.preventDefault();
+    elmnt.style.top = (e.touches[0].pageY - touchToTopElement) + "px";
+    elmnt.style.left = (e.touches[0].pageX - touchToLeftElement ) + "px";
+  }
+
 
   function elementDrag(e) {
     e = e || window.event;
