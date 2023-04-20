@@ -30,4 +30,25 @@
     }
     }
   }
+  &__logo{
+
+  }
 }
+
+  @media screen and (max-width: 968px) {
+    .home-header{
+     padding: 1rem;
+      &__logo{
+        width: 7rem;
+      }
+      &__menu{
+        &--item{
+          width: auto;
+    padding: 0 5px;
+          img{
+            width: 2rem
+          }
+        }
+      }
+  }
+  }

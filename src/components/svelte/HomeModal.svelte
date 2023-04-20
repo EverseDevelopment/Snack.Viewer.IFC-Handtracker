@@ -55,4 +55,12 @@
     background-size: cover;
     background-image: url(./assets/images/Frame.png);
 }
+  @media screen and (max-width: 968px) {
+    .container__img{
+      display: none;
+    }
+    .container__text {
+      width:100%;
+    }
+  }
 </style>
