@@ -93,6 +93,21 @@ section {
 .home-header__menu--item:hover {
   color: #dc3545;
 }
+@media screen and (max-width: 968px) {
+  .home-header {
+    padding: 1rem;
+  }
+  .home-header__logo {
+    width: 7rem;
+  }
+  .home-header__menu--item {
+    width: auto;
+    padding: 0 5px;
+  }
+  .home-header__menu--item img {
+    width: 2rem;
+  }
+}
 .video__frame {
   position: absolute;
   right: 1px;

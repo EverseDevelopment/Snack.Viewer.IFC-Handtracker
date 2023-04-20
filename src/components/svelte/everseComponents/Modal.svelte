@@ -47,6 +47,15 @@
     padding: 3rem;
     max-width: 50rem;
   }
+    @media screen and (max-width: 968px) {
+        .modal-container {
+    margin: 15% 10px;
+    padding: 1rem;
+          width: auto !important;
+
+  }
+    }
+
   :global(.header--title) {
     margin-bottom: 1rem;
     font-weight: 700;
