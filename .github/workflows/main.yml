@@ -23,12 +23,12 @@ jobs:
           aws-access-key-id: ${{ secrets.EVERSE_AWS_S3_BUCKET_SECRET_KEY_ID }}
           aws-secret-access-key: ${{ secrets.EVERSE_AWS_S3_BUCKET_SECRET_KEY_SECRET }}
           aws-region: us-east-2
-      - name: Use Node.js 12.x
+      - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 14.x
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --ignore-engines
       - name: Build
         run: yarn build
       - name: Deploy
