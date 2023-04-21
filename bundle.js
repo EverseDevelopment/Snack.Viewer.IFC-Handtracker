@@ -96745,7 +96745,7 @@ function create_header_slot(ctx) {
 	return {
 		c() {
 			div = element("div");
-			div.innerHTML = `<h1 class="header--title">DATA MODEL</h1>`;
+			div.innerHTML = `<h1 class="header--title">Data Model</h1>`;
 			attr(div, "slot", "header");
 		},
 		m(target, anchor) {
@@ -96871,7 +96871,7 @@ function create_body_slot(ctx) {
 		c() {
 			div2 = element("div");
 
-			div2.innerHTML = `<div><h1 class="header--title">HOW TO USE</h1></div> 
+			div2.innerHTML = `<div><h1 class="header--title">How To Use</h1></div> 
             <hr/> 
     <h3 class="body--subtitle">Instructions:</h3> 
     <ul class="body--list"><li class="body--list--item">Turn ON the camera</li> 

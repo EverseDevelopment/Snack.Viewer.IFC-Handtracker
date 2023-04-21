@@ -5,7 +5,7 @@
 </script>
 <Modal {activator}  width={'auto'}>
   <div slot="header">
-    <h1 class="header--title">DATA MODEL</h1>
+    <h1 class="header--title">Data Model</h1>
   </div>
   <div slot="body">
     <h3 class="body--subtitle">Description</h3>
