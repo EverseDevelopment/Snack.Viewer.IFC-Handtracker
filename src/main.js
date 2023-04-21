@@ -14,6 +14,10 @@ const picker = new Picker(baseScene, ifcModels);
 const loader = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
 const track = new Track(loader, baseScene);
 
+document.addEventListener("DOMContentLoaded", function(event) {
+track.turnOnVideo()
+});
+
 window.track = track
 
 window.input = function (options) {

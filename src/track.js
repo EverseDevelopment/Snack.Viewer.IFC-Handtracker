@@ -58,6 +58,10 @@ export class Track {
         });
     }
 
+    turnOnVideo() {
+        contextTracker.startVideo(contextTracker);
+    }
+
     setupUploadModelInput() {
         const input = document.getElementById("upload-model-input");
         input.addEventListener(

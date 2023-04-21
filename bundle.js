@@ -94934,6 +94934,10 @@ class Track {
         });
     }
 
+    turnOnVideo() {
+        contextTracker.startVideo(contextTracker);
+    }
+
     setupUploadModelInput() {
         const input = document.getElementById("upload-model-input");
         input.addEventListener(
@@ -96958,6 +96962,10 @@ const baseScene = new ThreeScene();
 new Picker(baseScene, ifcModels);
 const loader = new IfcManager(baseScene.scene, ifcModels, ifcFilePath);
 const track = new Track(loader, baseScene);
+
+document.addEventListener("DOMContentLoaded", function(event) {
+track.turnOnVideo();
+});
 
 window.track = track;
 
