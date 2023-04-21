@@ -77,6 +77,11 @@
     align-items: center;
     justify-content: center;
   }
+  :global(.animation--image) {
+       border-radius: 6%;
+    border: solid 2px #f94f46;
+    padding: 6px;
+  }
   :global(.body--list) {
     margin: 0;
   }

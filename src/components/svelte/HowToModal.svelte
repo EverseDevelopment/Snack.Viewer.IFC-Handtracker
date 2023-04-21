@@ -17,7 +17,7 @@
     </ul>
         <hr>
     <div class="body--image">
-          <img src="./assets/images/howToMove.gif" width="200px" alt="A hand moves in the 4 directions of an axis"/>
+          <img class="animation--image" src="./assets/images/howToMove.gif" width="200px" alt="A hand moves in the 4 directions of an axis"/>
     </div>
 
   </div>
