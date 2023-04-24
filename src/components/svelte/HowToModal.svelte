@@ -6,7 +6,7 @@
 <Modal {activator} width={'25rem'}>
   <div id="HowToModalComponent" slot="body">
     <div>
-      <h1 class="header--title">HOW TO USE</h1>
+      <h1 class="header--title">How To Use</h1>
     </div>
             <hr>
     <h3 class="body--subtitle">Instructions:</h3>
@@ -17,7 +17,7 @@
     </ul>
         <hr>
     <div class="body--image">
-          <img src="./assets/images/howToMove.gif" width="200px" alt="A hand moves in the 4 directions of an axis"/>
+          <img class="animation--image" src="./assets/images/howToMove.gif" width="200px" alt="A hand moves in the 4 directions of an axis"/>
     </div>
 
   </div>

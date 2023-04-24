@@ -84,7 +84,6 @@
 <script>
 
     var myListener = function() {
-        console.log('aki')
 document.querySelector('.video__frame').style.right = 0
 document.querySelector('.video__frame').style.left = 'auto'
 };
@@ -172,10 +171,10 @@ function dragElement(elmnt) {
             <img src="./assets/icons/upload.svg" alt="upload" title="Upload file">
             <input type="file" accept=".ifc" id="upload-model-input">
         </label>
-        <button id="trackButtonON" type="button" class="fab-primary">
+        <button id="trackButtonON" type="button" class="fab-primary hidden">
             <img src="./assets/icons/camera.svg" alt="camera" title="Turn ON camera">
         </button>
-        <button id="trackButtonOFF" type="button" class="fab-primary hidden">
+        <button id="trackButtonOFF" type="button" class="fab-primary">
             <img src="./assets/icons/camera-off.svg" alt="camera-off" title="Turn OFF camera">
         </button>
     </div>
