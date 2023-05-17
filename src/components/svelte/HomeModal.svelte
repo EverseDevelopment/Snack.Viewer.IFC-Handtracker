@@ -19,7 +19,7 @@
         <div class="container__text">
           <h1 class="header--title">Hello!</h1>
           <p class="body--text">
-            I'm [PLACEHOLDIO]
+            I'm ORION
           </p>
           <p class="body--text">
             In this snack, you will harness the power
