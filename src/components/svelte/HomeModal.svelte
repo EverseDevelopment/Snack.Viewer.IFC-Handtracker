@@ -22,13 +22,12 @@
             I'm ORION
           </p>
           <p class="body--text">
-            In this snack, you will harness the power
+            In this demo, you will harness the power
             of artificial vision to control the view of a 3D model by
             simply using the gestures of your hand
           </p>
           <p class="body--text">
             Sounds like the future right? Well, it is already here.
-            So buckle up and let's jump right in!
           </p>
           <Input type={"button"} {props}></Input>
         </div>

@@ -96606,13 +96606,13 @@ function create_body_slot$2(ctx) {
 			h1.textContent = "Hello!";
 			t1 = space();
 			p0 = element("p");
-			p0.textContent = "I'm [PLACEHOLDIO]";
+			p0.textContent = "I'm ORION";
 			t3 = space();
 			p1 = element("p");
-			p1.textContent = "In this snack, you will harness the power\r\n            of artificial vision to control the view of a 3D model by\r\n            simply using the gestures of your hand";
+			p1.textContent = "In this demo, you will harness the power\n            of artificial vision to control the view of a 3D model by\n            simply using the gestures of your hand";
 			t5 = space();
 			p2 = element("p");
-			p2.textContent = "Sounds like the future right? Well, it is already here.\r\n            So buckle up and let's jump right in!";
+			p2.textContent = "Sounds like the future right? Well, it is already here.";
 			t7 = space();
 			create_component(input.$$.fragment);
 			t8 = space();
