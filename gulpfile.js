@@ -2,12 +2,19 @@ const gulp = require('gulp')
 const sass = require('gulp-sass')(require('sass'))
 const fileInclude = require('gulp-file-include')
 const concat = require('gulp-concat')
-const gulpInject = require('gulp-inject')
+const cssmin = require('gulp-cssmin');
 
 function style() {
   return gulp.src('./src/scss/**/*.scss')
       .pipe(sass())
+      .pipe(cssmin())
       .pipe(concat('main.css'))
+      .pipe(gulp.dest('.'))
+}
+function cssMinify() {
+  return gulp.src('./src/css/*.css')
+      .pipe(cssmin())
+      .pipe(concat('styles.css'))
       .pipe(gulp.dest('.'))
 }
 
@@ -30,6 +37,7 @@ function watch() {
 
 }
 
+exports.cssMinify = cssMinify
 exports.style = style
 exports.watch = watch
 exports.include = include
