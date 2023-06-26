@@ -1,0 +1,174 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#threeCanvas {
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+#openFileDialog {
+    z-index: 1;
+    position: fixed;
+    top: 1rem;
+    left: 7rem;
+}
+
+#close-button {
+    z-index: 1;
+    position: fixed;
+    top: 3rem;
+    padding: 0 2.9rem;
+    left: 7rem;
+}
+
+#viewer,
+iframe {
+    position: absolute;
+    border: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#tracker,
+iframe {
+    position: relative;
+    border: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: transparent;
+}
+
+#camera {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+
+    padding: 12px;
+    border-radius: 50%;
+    margin-bottom: 0px;
+
+    background-color: #FFF;
+    opacity: .9;
+    z-index: 999;
+
+    box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+}
+
+#updatenote {
+    color: #000;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.scene-wrapper {
+    position: relative;
+    z-index: 3;
+    display: flex;
+}
+
+.video-controller {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 200px;
+}
+
+.video-wrapper {
+    display: inline-grid;
+}
+.general-button {   
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+	background-color:#f9f9f9;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:hand;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.general-button:hover {
+	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+	background-color:#e9e9e9;
+}
+.general-button:active {
+	position:relative;
+	top:1px;
+}
+
+#uploadbutton {
+    position:absolute;
+    margin-bottom: 1rem;    
+    left: 2rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#trackbutton {
+    margin-bottom: 0.2rem;
+}
+
+#bottom-logo {
+    position: absolute;
+    z-index: 9;
+    width: 9rem;
+    bottom: 0;
+    right: 0.7rem;
+}
+
+.info-wrapper {
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    cursor: pointer;
+}
+
+.info-wrapper img {
+    width: 1.6rem;
+}
+
+.modal-content {
+    border-radius: 1rem;
+}
+  
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-title {
+    color: #E62442;
+    margin-bottom: 1rem!important;
+    font-size: 1.5rem;
+}
+
+.info-description h5 {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.info-description p {
+    font-size: 15px;
+    color: grey;
+    margin-bottom: 0.5rem;
+}
+
+.info-description p > a {
+    color: grey;
+    word-break: break-word;
+}
