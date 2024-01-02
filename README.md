@@ -1,27 +1,28 @@
-# Viewer.IFC-Handtracker.Snack
+# Viewer IFC Hand Tracker
 
+[<img src="https://user-images.githubusercontent.com/115579683/205162605-f0b9a2ca-1b85-41a8-bfe1-beb4999a3251.png" width="443" height="209">](https://github.com/EverseDevelopment/Snack.Viewer.IFC-Handtracker/wiki)
+<br/>
+
+# Demo
+[Live demo](https://handgesture.e-verse.com/)
+
+# About
 <h3 align="left">An <a href="https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/" target="_blank">IFC</a> viewer with image recognition applied to the camera for controlling of the rotation of the model
 <br/>
 
-## Getting Started
+# Getting Started
+
 This is static, so please use the following steps to run:
 
 1. npm install
 2. npm run build
 3. npm start
-  
-## Demo
-Image preview
-
-![image](https://user-images.githubusercontent.com/115579683/205162605-f0b9a2ca-1b85-41a8-bfe1-beb4999a3251.png)
-
-You can see a live demo of this repo <a href="https://handgesture.e-verse.com/" target="_blank">Here</a>
 
 ## Contributors
-This repo is primarily managed by [E-verse](https://www.e-verse.co/) and by [People Like You™](https://github.com/EverseDevelopment/Viewer.IFC-Handtracker.Snack/pulse).
+This repo is primarily managed by [E-verse](https://www.e-verse.co/) and by [People Like You™](https://github.com/EverseDevelopment/Snack.Viewer.IFC-Handtracker/pulse).
 
 ## Help improve this repo
-If you're interested in contributing to this repo, just submit a [pull request](https://github.com/EverseDevelopment/Viewer.IFC-Handtracker.Snack/pulls) or a [feature request](https://github.com/EverseDevelopment/Viewer.IFC-Handtracker.Snack/issues) .
+If you're interested in contributing to this repo, just submit a [pull request](https://github.com/EverseDevelopment/VSnack.Viewer.IFC-Handtracker/pulls) or a [feature request](https://github.com/EverseDevelopment/Snack.Viewer.IFC-Handtracker/issues) .
 
 ## About us ##
 
@@ -29,6 +30,6 @@ We are an international mix of AEC professionals, product designers, and softwar
 
 <p align="center" width="100%">
     <a href="https://www.e-verse.com/">
-    <img src="https://github.com/EverseDevelopment/DynaForge/blob/main/Assets/e-verse_logo_no%20slogan.jpg" width="732" height="271" align="center">
+    <img src="https://s3.amazonaws.com/everse.assets/e-verse_logo_no+slogan.jpg" width="732" height="271" align="center">
     </a>
 </p>
