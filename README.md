@@ -1,6 +1,6 @@
 # Viewer IFC Hand Tracker
 
-[<img src="https://user-images.githubusercontent.com/115579683/205162605-f0b9a2ca-1b85-41a8-bfe1-beb4999a3251.png" width="443" height="209">](https://github.com/EverseDevelopment/Snack.Viewer.IFC-Handtracker/wiki)
+[<img src="https://s3.amazonaws.com/everse.assets/GithubReadme/HandTrackerPreviewImage.png">](https://github.com/EverseDevelopment/Snack.Viewer.IFC-Handtracker/wiki)
 <br/>
 
 # Demo
@@ -30,6 +30,6 @@ We are an international mix of AEC professionals, product designers, and softwar
 
 <p align="center" width="100%">
     <a href="https://www.e-verse.com/">
-    <img src="https://s3.amazonaws.com/everse.assets/e-verse_logo_no+slogan.jpg" width="732" height="271" align="center">
+    <img src="https://s3.amazonaws.com/everse.assets/GithubReadme/e-verse_logo_no+slogan.jpg" width="732" height="271" align="center">
     </a>
 </p>
